@@ -138,7 +138,7 @@ async def on_message(message):
                 send_str = f"{char_name} : {result} : {str} {roll_num:02} <= {status_num:02} {message.author.mention}"
 
             else:
-                send_str = "/ Bat Format"
+                send_str = f"/ Bat Format {message.author.mention}"
                 sleep_time = 3
 
             await client.send_message(message.channel, send_str)
@@ -195,7 +195,7 @@ async def on_message(message):
         await client.delete_message(message)
 
     except:
-        send_str = "/ Process Error"
+        send_str = f"/ Process Error {message.author.mention}"
         await client.send_message(message.channel, send_str)
         sleep_time = 3
         await sleep(sleep_time)
