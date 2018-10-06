@@ -92,10 +92,9 @@ async def on_message(message):
         if not message.content.startswith('/'):
             return
 
-        sleep_time = 10
+        sleep_time = 1
         if message.content.startswith('/r'):
             str = re.sub(r"(/r| |　)" , "" , message.content)
-            sleep_time = 6
             char_name = player_data[message.author.nick]
             if re.fullmatch(r"[0-9]*d[0-9]+" , str):
                 dice_num = dice_roll(str)
@@ -140,7 +139,7 @@ async def on_message(message):
 
             else:
                 send_str = "/ Bat Format"
-                sleep_time = 5
+                sleep_time = 3
 
             await client.send_message(message.channel, send_str)
 
@@ -158,7 +157,6 @@ async def on_message(message):
             set_char_status(char_name , status_name , val)
             send_str = f"{char_name} {status_name} {old_status} -> {val}"
             await client.send_message(message.channel, send_str)
-            sleep_time = 5
 
         elif message.content.startswith('/get'):
             info = re.search(r"/get *(\S+)\s+(\S+)" , message.content)
@@ -167,7 +165,6 @@ async def on_message(message):
             val = get_char_status(char_name , status_name)
             send_str = f"{char_name} {status_name} : {val}"
             await client.send_message(message.channel, send_str)
-            sleep_time = 5
 
         elif message.content.startswith('/cr'):
             char_name = player_data[message.author.nick]
@@ -175,12 +172,10 @@ async def on_message(message):
             cra = craziness_table[dice_num - 1]
             send_str = f"{char_name} 1d10 = {dice_num} : {cra} {message.author.mention}"
             await client.send_message(message.channel, send_str)
-            sleep_time = 5
 
         elif message.content.startswith('/save'):
             save_ini()
             await client.send_message(message.channel, '/ save Success')
-            sleep_time = 5
 
         elif message.content.startswith('/connect'):
             info = re.search(r"/connect *(\S+)\s+(\S+)" , message.content)
@@ -202,6 +197,7 @@ async def on_message(message):
     except:
         send_str = "/ Process Error"
         await client.send_message(message.channel, send_str)
+        sleep_time = 3
         await sleep(sleep_time)
         await client.delete_message(message)
         return
