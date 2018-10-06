@@ -214,6 +214,7 @@ def init_char():
     global ini
     char_data.clear()
     try:
+        ini.read("./char.ini" , encoding='utf8')
         for section in ini.sections():
             char_data[section] = OrderedDict()
             for key in ini.options(section):
@@ -228,6 +229,7 @@ def init_craziness():
     global craziness_table
     global cr_ini
     try:
+        cr_ini.read("./craziness.ini" , encoding='utf8')
         for i in range(10):
             craziness_table[int(i)] = cr_ini.get('craziness', str(i))
     except:
@@ -351,9 +353,7 @@ def get_char_status(character_name , skill_name):
 
 
 ini = configparser.SafeConfigParser()
-ini.read("./char.ini" , encoding='utf8')
 cr_ini = configparser.SafeConfigParser()
-cr_ini.read("./craziness.ini" , encoding='utf8')
 init_char()
 init_craziness()
 token_ini = configparser.SafeConfigParser()
