@@ -146,10 +146,11 @@ async def on_message(message):
         elif message.content.startswith('/init'):
             init_char()
             init_craziness()
-            await client.send_message(message.channel, '/ init Success')
+            await client.send_message(message.channel, 'init Success')
+            return
 
         elif message.content.startswith('/set'):
-            info = re.search(r"/set *(\S+)\s+(\S+)\s+(\d+)" , message.content)
+            info = re.search(r"/set *\[(.*)\]\s*\[(.*)\]\s*\[(.*)\]" , message.content)
             char_name = info.group(1)
             status_name = info.group(2)
             val = info.group(3)
@@ -159,7 +160,7 @@ async def on_message(message):
             await client.send_message(message.channel, send_str)
 
         elif message.content.startswith('/get'):
-            info = re.search(r"/get *(\S+)\s+(\S+)" , message.content)
+            info = re.search(r"/get *\[(.*)\]\s*\[(.*)\]" , message.content)
             char_name = info.group(1)
             status_name = info.group(2)
             val = get_char_status(char_name , status_name)
@@ -175,17 +176,19 @@ async def on_message(message):
 
         elif message.content.startswith('/save'):
             save_ini()
-            await client.send_message(message.channel, '/ save Success')
+            await client.send_message(message.channel, 'save Success')
+            return
 
         elif message.content.startswith('/connect'):
-            info = re.search(r"/connect *(\S+)\s+(\S+)" , message.content)
+            info = re.search(r"/connect *?\[(.*)\]\s*\[(.*)\]" , message.content)
             player_name = info.group(1)
             char_name = info.group(2)
             connect_PLtoPC(player_name , char_name)
-            await client.send_message(message.channel, '/ connect Success')
+            await client.send_message(message.channel, 'connect Success')
+            return
 
         elif message.content.startswith('/view'):
-            info = re.search(r"/view *(.*)" , message.content)
+            info = re.search(r"/view *\[(.*)\]" , message.content)
             char_name = info.group(1)
             send_str = view_char_data(char_name)
             await client.send_message(message.channel, send_str)
