@@ -12,14 +12,14 @@ char.iniに記載することでbotにキャラデータを読み込ませるこ
 ### システムコマンド
 - /init
 	- 初期化(起動時自動実行) iniを再読み込みしたい場合に使用
-- /connect nickname charname
-	- ユーザーニックネームとキャラクター名を紐づける
+- /connect [name#0000] [charname]
+	- ユーザーIDとキャラクター名を紐づける
 	- **これを実行しない場合ダイスロールが行えない**
-- /get charname statusname
+- /get [charname] [statusname]
 	- 対象キャラのステータス表示
-- /set charname statusname value
+- /set [charname] [statusname] [value]
 	- 対象キャラのステータス変更
-- /veiw charname
+- /veiw [charname]
 	- 対象キャラのステータスの一括表示
 - /save
 	- 現在のキャラ情報をiniに書き込み
