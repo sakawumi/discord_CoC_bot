@@ -190,6 +190,8 @@ async def on_message(message):
             send_str = view_char_data(char_name)
             await client.send_message(message.channel, send_str)
 
+        elif message.content.startswith('/ Bat Format '):
+            sleep_time = 5
 
         await sleep(sleep_time)
         await client.delete_message(message)
