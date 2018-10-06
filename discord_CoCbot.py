@@ -185,7 +185,7 @@ async def on_message(message):
             await client.send_message(message.channel, '/ connect Success')
 
         elif message.content.startswith('/view'):
-            info = re.search(r"/view *(\S+)" , message.content)
+            info = re.search(r"/view *(.*)" , message.content)
             char_name = info.group(1)
             send_str = view_char_data(char_name)
             await client.send_message(message.channel, send_str)
