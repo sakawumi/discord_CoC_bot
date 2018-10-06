@@ -94,14 +94,15 @@ async def on_message(message):
 
         sleep_time = 1
         if message.content.startswith('/r'):
-            str = re.sub(r"(/r| |　)" , "" , message.content)
-            char_name = player_data[message.author.nick]
-            if re.fullmatch(r"[0-9]*d[0-9]+" , str):
-                dice_num = dice_roll(str)
-                send_str = f"{char_name} Roll {str} : {dice_num} {message.author.mention}"
+            use_str = re.sub(r"(/r| |　)" , "" , message.content)
+            player_name = str(message.author)
+            char_name = player_data[player_name]
+            if re.fullmatch(r"[0-9]*d[0-9]+" , use_str):
+                dice_num = dice_roll(use_str)
+                send_str = f"{char_name} Roll {use_str} : {dice_num} {message.author.mention}"
                 
-            elif re.fullmatch(r"[0-9]*d[0-9]+\+[0-9]?d[0-9]+" , str):
-                dire_info = re.search(r"([0-9]*d[0-9]+)\+([0-9]*d[0-9]+)" , str)
+            elif re.fullmatch(r"[0-9]*d[0-9]+\+[0-9]?d[0-9]+" , use_str):
+                dire_info = re.search(r"([0-9]*d[0-9]+)\+([0-9]*d[0-9]+)" , use_str)
                 dice1 = dire_info.group(1)
                 dice2 = dire_info.group(2)
                 dice1n = dice_roll(dice1)
@@ -109,16 +110,16 @@ async def on_message(message):
                 sum_n = int(dice1n) + int(dice2n)
                 send_str = f"{char_name} Roll {dice1} + {dice2} : {dice1n} + {dice2n} = {sum_n} {message.author.mention}"
 
-            elif re.fullmatch(r"[0-9]*d[0-9]+\+[0-9]+" , str):
-                dire_info = re.search(r"([0-9]*d[0-9]+)\+([0-9]+)" , str)
+            elif re.fullmatch(r"[0-9]*d[0-9]+\+[0-9]+" , use_str):
+                dire_info = re.search(r"([0-9]*d[0-9]+)\+([0-9]+)" , use_str)
                 dice1 = dire_info.group(1)
                 num = dire_info.group(2)
                 dice1n = dice_roll(dice1)
                 sum_n = int(dice1n) + int(num)
                 send_str = f"{char_name} Roll {dice1} + {num} : {dice1n} + {num} = {sum_n} {message.author.mention}"
 
-            elif re.fullmatch(r"\S+" , str):
-                status_num =  int(get_char_status(char_name , str))
+            elif re.fullmatch(r"\S+" , use_str):
+                status_num =  int(get_char_status(char_name , use_str))
                 roll_num = dice_roll('1d100')
 
                 if roll_num <= 5:
@@ -135,7 +136,7 @@ async def on_message(message):
                 elif roll_num >= status_num:
                     result = 'Failed...'
 
-                send_str = f"{char_name} : {result} : {str} {roll_num:02} <= {status_num:02} {message.author.mention}"
+                send_str = f"{char_name} : {result} : {use_str} {roll_num:02} <= {status_num:02} {message.author.mention}"
 
             else:
                 send_str = f"/ Bat Format {message.author.mention}"
@@ -168,7 +169,8 @@ async def on_message(message):
             await client.send_message(message.channel, send_str)
 
         elif message.content.startswith('/cr'):
-            char_name = player_data[message.author.nick]
+            player_name = str(message.author)
+            char_name = player_data[player_name]
             dice_num = dice_roll('1d10')
             cra = craziness_table[dice_num - 1]
             send_str = f"{char_name} 1d10 = {dice_num} : {cra} {message.author.mention}"
@@ -180,7 +182,7 @@ async def on_message(message):
             return
 
         elif message.content.startswith('/connect'):
-            info = re.search(r"/connect *?\[(.*)\]\s*\[(.*)\]" , message.content)
+            info = re.search(r"/connect *\[(.*)\]\s*\[(.*)\]" , message.content)
             player_name = info.group(1)
             char_name = info.group(2)
             connect_PLtoPC(player_name , char_name)
