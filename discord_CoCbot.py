@@ -173,7 +173,7 @@ async def on_message(message):
             char_name = player_data[message.author.nick]
             dice_num = dice_roll('1d10')
             cra = craziness_table[dice_num - 1]
-            send_str = f"{char_name} 1d10 = {dice_num} : {cra}"
+            send_str = f"{char_name} 1d10 = {dice_num} : {cra} {message.author.mention}"
             await client.send_message(message.channel, send_str)
             sleep_time = 5
 
