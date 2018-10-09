@@ -133,7 +133,7 @@ async def on_message(message):
                     result = 'Success!'
                     char_name = f"**{char_name}**"
 
-                elif roll_num >= status_num:
+                elif roll_num > status_num:
                     result = 'Failed...'
 
                 send_str = f"{char_name} : {result} : {use_str} {roll_num:02} <= {status_num:02} {message.author.mention}"
