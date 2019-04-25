@@ -126,12 +126,12 @@ async def on_message(message):
                     result = '**Critical!!**'
                     char_name = f"**{char_name}**"
 
-                elif roll_num >= 96:
-                    result = '**Fumble!!**'
-
                 elif roll_num <= status_num:
                     result = 'Success!'
                     char_name = f"**{char_name}**"
+
+                elif roll_num >= 96:
+                    result = '**Fumble!!**'
 
                 elif roll_num > status_num:
                     result = 'Failed...'
